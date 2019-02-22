@@ -1,4 +1,4 @@
-from subprocess import PIPE, call
+from subprocess import PIPE, Popen
 
 f = open("geomb.inp","r")
 lines = [ _ for _ in f ]
@@ -12,6 +12,12 @@ def runSimulation():
     out, err = process.communicate()
 
     if out.decode("utf-8")=="TIMEOUT_ERROR\n":
-        #handle error
+        print("error")
+        return -1
 
-    #handle data
+    terminalAngularVelocity = float(str(out.decode("utf-8")).split('\n')[-4].split()[5]))
+
+    return terminalAngularVelocity
+
+if __name__ == '__main__':
+    runSimulation()
