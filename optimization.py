@@ -15,7 +15,7 @@ def runSimulation():
         print("error")
         return -1
 
-    terminalAngularVelocity = float(str(out.decode("utf-8")).split('\n')[-4].split()[5]))
+    terminalAngularVelocity = float(str(out.decode("utf-8")).split('\n')[-4].split()[5])
 
     return terminalAngularVelocity
 
