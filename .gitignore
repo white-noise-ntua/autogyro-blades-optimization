@@ -1,0 +1,7 @@
+# Hide all simulation files
+# They will be open-sourced after the end of CanSat Competition 2019 ( cansatcompetition.com )
+*.exe
+*.f90
+*inp
+*.dat
+profil*
