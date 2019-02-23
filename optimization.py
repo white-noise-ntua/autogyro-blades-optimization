@@ -1,5 +1,7 @@
 from subprocess import PIPE, Popen
 
+L = 0.257 # length of helix
+
 def runSimulation():
     command = "timeout 10s wine aero_static.exe || [ $? -eq 124 ] && echo TIMEOUT_ERROR"
     process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
@@ -32,5 +34,15 @@ def writeInput(r,chord,twist):
         f.write(str(r[i]) + '\t' + str(chord[i]) + '\t' + str(twist[i]) + '\t0.00\t0.00\n')
 
 
-if __name__ == '__main__':
-    runSimulation()
+def computeI(r,c):
+    samples = len(r)
+
+    f = lambda r,c: c*r^2
+
+    sum1toN_1 = 0
+    for i in range(1,samples-1):
+        sum1toN_1 += 2*f(r[i],c[i])
+
+    I = L * ( f(r[0], c[0]) + f(r[samples-1], c[samples-1]) + sum1toN_1 ) / (2*samples)
+
+    return I
