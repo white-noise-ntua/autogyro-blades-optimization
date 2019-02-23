@@ -46,3 +46,17 @@ def computeI(r,c):
     I = L * ( f(r[0], c[0]) + f(r[samples-1], c[samples-1]) + sum1toN_1 ) / (2*samples)
 
     return I
+
+
+def chordBezier(y1,y2,y3,y4,t):
+    c = (1-t)**3 * y1 + 3 * (1-t)**2 * t * y2 + 3 * (1-t) * t**2 * y3 + t**3 * y4
+    r = (t**3 + (1-t)**2 * t + 2*(1-t) * t**2) * L
+
+    return c,r
+
+def twistBezier(f1,f2,f3,r):
+    t = r/L
+
+    f = (1-t)**2 * f1 + 2*(1-t)*t*f2 + t**2 * f3
+
+    return f
