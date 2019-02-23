@@ -29,6 +29,11 @@ def writeInput(r,chord,twist):
     f = open("geomb.inp","w")
 
     f.write(inputFileIntro(len(r)))
+    round_ = lambda x: float("{0:.5f}".format(x))
+
+    r = list(map(round_,r))
+    chord = list(map(round_,chord))
+    twist = list(map(round_,twist))
 
     for i in range(len(r)):
         f.write(str(r[i]) + '\t' + str(chord[i]) + '\t' + str(twist[i]) + '\t0.00\t0.00\n')
