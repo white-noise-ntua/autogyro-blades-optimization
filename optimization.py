@@ -37,7 +37,7 @@ def writeInput(r,chord,twist):
 def computeI(r,c):
     samples = len(r)
 
-    f = lambda r,c: c*r^2
+    f = lambda r,c: c * r**2
 
     sum1toN_1 = 0
     for i in range(1,samples-1):
