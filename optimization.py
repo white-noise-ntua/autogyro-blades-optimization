@@ -10,9 +10,11 @@ def runSimulation():
         print("error")
         return -1
 
-    terminalAngularVelocity = float(str(out.decode("utf-8")).split('\n')[-4].split()[5])
+    lastLine = str(out.decode("utf-8")).split('\n')[-4].split()
+    terminalAngularVelocity = float(lastLine[5])
+    terminalVelocity = float(lastLine[7])
 
-    return terminalAngularVelocity
+    return terminalAngularVelocity, terminalVelocity
 
 
 def inputFileIntro(numberOfPoints):
@@ -32,8 +34,8 @@ def writeInput(r,chord,twist):
     # we offset all R values by 0.07 for simulation needs
     addRROOT = lambda x : x+0.07
 
-    r = list(map(round_,r))
     r = list(map(addRROOT,r))
+    r = list(map(round_,r))
     chord = list(map(round_,chord))
     twist = list(map(round_,twist))
 
