@@ -29,8 +29,11 @@ def writeInput(r,chord,twist):
 
     f.write(inputFileIntro(len(r)))
     round_ = lambda x: float("{0:.5f}".format(x))
+    # we offset all R values by 0.07 for simulation needs
+    addRROOT = lambda x : x+0.07
 
     r = list(map(round_,r))
+    r = list(map(addRROOT,r))
     chord = list(map(round_,chord))
     twist = list(map(round_,twist))
 
