@@ -1,6 +1,6 @@
 from subprocess import PIPE, Popen
-from curves.py import getPropellerArray
-from writeInput.py import writeInput
+from curves import getPropellerArray
+from writeInput import writeInput
 
 
 def runSimulation():
@@ -11,6 +11,7 @@ def runSimulation():
     if out.decode("utf-8")=="TIMEOUT_ERROR\n":
         print("error")
         return -1
+
 
     lastLine = str(out.decode("utf-8")).split('\n')[-4].split()
     terminalAngularVelocity = float(lastLine[5])
