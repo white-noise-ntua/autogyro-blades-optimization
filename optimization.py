@@ -2,7 +2,7 @@ from subprocess import PIPE, Popen
 
 
 def runSimulation():
-    command = "timeout 10s wine aero_static.exe || [ $? -eq 124 ] && echo TIMEOUT_ERROR"
+    command = "timeout 10s ./blades.out || [ $? -eq 124 ] && echo TIMEOUT_ERROR"
     process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
     out, err = process.communicate()
 
