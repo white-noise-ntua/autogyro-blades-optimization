@@ -24,3 +24,7 @@ def getPropellerArray(y1,y2,y3,y4,f1,f2,f3,L):
         twist.append(twistBezier(f1,f2,f3,r,L))
 
     return radius,chord,twist
+
+# Limits for radius: 0 to 0.257
+# Limits for chord: 0.02 to 0.06
+# Limits for twist: -20 to 45
