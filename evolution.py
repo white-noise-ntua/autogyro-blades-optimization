@@ -1,4 +1,4 @@
-from optimization import runSimulation
+from Simulation import runSimulation
 from curves import getPropellerArray
 from writeInput import writeInput
 import numpy as np
@@ -19,7 +19,7 @@ def runEvolution(numGen = 10, popSize = 10):
     #population = []
     #for _ in range(popSize):
     #    c = (np.random.normal(0, 0.1, 7) , 0.0)
-    #    population.append(c) 
+    #    population.append(c)
 
     population = [(np.random.normal(0, 0.1, 7) , 0.0) for _ in range(popSize)]
 
@@ -35,9 +35,9 @@ def runEvolution(numGen = 10, popSize = 10):
 
         # Dump part of the population
 
-        # Create offsping based on mutations 
+        # Create offsping based on mutations
 
-        
+
 
     # Save the best creature
 
@@ -46,10 +46,3 @@ def runEvolution(numGen = 10, popSize = 10):
 
 if __name__ == '__main__':
     runEvolution()
-
-
-
-
-            
-
-
