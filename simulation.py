@@ -1,3 +1,4 @@
+from subprocess import PIPE, Popen
 
 def runSimulation():
     command = "timeout 10s ./blades.out || [ $? -eq 124 ] && echo TIMEOUT_ERROR"
