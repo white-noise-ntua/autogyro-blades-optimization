@@ -1,4 +1,7 @@
 from math import exp
+from curves import getPropellerArray
+from simulation import runSimulation
+from writeInput import writeInput
 
 L = 0.257 # propeller's length
 
@@ -29,3 +32,14 @@ def calculateCost(omega,vel,r,c):
     BladeCost = 10*(I*omega+VelCost(vel))
 
     return BladeCost
+
+def cost(x):
+    # input: bezier control points in an array
+    # output: propeller's cost
+
+    y1,y2,y3,y4,t1,t2,t3 = x
+    r, c, t = getPropellerArray(y1,y2,y3,y4,t1,t2,t3,L)
+    writeInput(r,c,t)
+    w, v = runSimulation()
+
+    return calculateCost(w,v,r,c)
