@@ -18,10 +18,12 @@ epsilon = np.array([
 def gradientStep(x,currentCost):
     # x = [y1, y2, y3, y4, t1, t2, t3]
     x = np.array(x)
-    step = np.array([0.1,0.1,0.1,0.1,70,70,70])
+    step = 10*epsilon
     grad = computeGradient(x,currentCost)
 
-    newX = x - np.multiply(step,grad)
+    normalizedGrad = np.divide(grad,abs(grad))
+
+    newX = proj(x - np.multiply(step,grad))
 
     newCost = cost(newX)
 
@@ -36,6 +38,28 @@ def computeGradient(x,currentCost):
     gradient = np.divide(newCosts-currentCost,epsilon)
 
     return gradient
+
+chordLowLimit = 0.2
+chordHiLimit = 0.6
+twistLowLimit = -20
+twistHiLimit = 40
+
+def proj(x):
+    for i in range(7):
+        if i < 4:
+            # chord coordinate
+            if x[i] < chordLowLimit:
+                x[i] = chordLowLimit
+            elif x[i] > chordHiLimit:
+                x[i] = chordHiLimit
+        else:
+            # twist coordinate
+            if x[i] < twistLowLimit:
+                x[i] = twistLowLimit
+            elif x[i] > twistHiLimit:
+                x[i] = twistHiLimit
+    return x
+
 
 if __name__ == '__main__':
     currCost = cost([0.5,0.45,0.35,0.25,12,12,12])
