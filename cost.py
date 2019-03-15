@@ -25,7 +25,7 @@ def calculateCost(omega,vel,r,c):
     # vel is the linear terminal velocity returned by 'runSimulation'
     # r and c are the radius and chord arrays given to the simulation
 
-    VelCost = lambda v : exp(-9/(v-12.5)**2)
+    VelCost = lambda v : 10*exp(-40/(v-12)**2)
 
     I = computeI(r,c)
 
