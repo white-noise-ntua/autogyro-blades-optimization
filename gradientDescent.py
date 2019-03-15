@@ -1,8 +1,19 @@
 from cost import cost
+from scipy import signal
 import numpy as np
 
 chordEpsilon = 0.04/100
 twistEpsilon = 0.6
+
+epsilon = np.array([
+        chordEpsilon,
+        chordEpsilon,
+        chordEpsilon,
+        chordEpsilon,
+        twistEpsilon,
+        twistEpsilon,
+        twistEpsilon
+        ])
 
 def gradientStep(x,currentCost):
     # x = [y1, y2, y3, y4, t1, t2, t3]
@@ -17,53 +28,12 @@ def gradientStep(x,currentCost):
     return newX, newCost
 
 def computeGradient(x,currentCost):
+    newCosts = np.zeros(7)
 
-    y1, y2, y3, y4, t1, t2, t3 = x
+    for i in range(7):
+        newCosts[i] = cost(x+np.multiply(epsilon,signal.unit_impulse(7,i)))
 
-    # -------------------------------------------------------
-    newCost = cost([y1+chordEpsilon,y2,y3,y4,t1,t2,t3])
-    grad_y1 =  (newCost - currentCost) / chordEpsilon
-    # -------------------------------------------------------
-
-    # -------------------------------------------------------
-    newCost = cost([y1,y2+chordEpsilon,y3,y4,t1,t2,t3])
-    grad_y2 =  (newCost - currentCost) / chordEpsilon
-    # -------------------------------------------------------
-
-    # -------------------------------------------------------
-    newCost = cost([y1,y2,y3+chordEpsilon,y4,t1,t2,t3])
-    grad_y3 =  (newCost - currentCost) / chordEpsilon
-    # -------------------------------------------------------
-
-    # -------------------------------------------------------
-    newCost = cost([y1,y2,y3,y4+chordEpsilon,t1,t2,t3])
-    grad_y4 =  (newCost - currentCost) / chordEpsilon
-    # -------------------------------------------------------
-
-    # -------------------------------------------------------
-    newCost = cost([y1,y2,y3,y4,t1+twistEpsilon,t2,t3])
-    grad_t1 =  (newCost - currentCost) / twistEpsilon
-    # -------------------------------------------------------
-
-    # -------------------------------------------------------
-    newCost = cost([y1,y2,y3,y4,t1,t2+twistEpsilon,t3])
-    grad_t2 =  (newCost - currentCost) / twistEpsilon
-    # -------------------------------------------------------
-
-    # -------------------------------------------------------
-    newCost = cost([y1,y2,y3,y4,t1,t2,t3+twistEpsilon])
-    grad_t3 =  (newCost - currentCost) / twistEpsilon
-    # -------------------------------------------------------
-
-    gradient = np.array([
-                grad_y1,
-                grad_y2,
-                grad_y3,
-                grad_y4,
-                grad_t1,
-                grad_t2,
-                grad_t3
-                ])
+    gradient = np.divide(newCosts-currentCost,epsilon)
 
     return gradient
 
