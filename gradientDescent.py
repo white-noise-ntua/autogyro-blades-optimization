@@ -15,6 +15,13 @@ epsilon = np.array([
         twistEpsilon
         ])
 
+def gradientDescent(x,currentCost,steps):
+    newX, newCost = x, currentCost
+    for i in range(steps):
+        newX, newCost = gradientStep(newX,newCost)
+        print("Step {} is done. The new cost is {}\n{}".format(i+1,newCost,newX))
+    return newX,newCost
+
 def gradientStep(x,currentCost):
     # x = [y1, y2, y3, y4, t1, t2, t3]
     x = np.array(x)
@@ -63,7 +70,7 @@ def proj(x):
 
 if __name__ == '__main__':
     currCost = cost([0.5,0.45,0.35,0.25,12,12,12])
-    newX, newCost = gradientStep([0.5,0.45,0.35,0.25,12,12,12],currCost)
+    newX, newCost = gradientDescent([0.5,0.45,0.35,0.25,12,12,12],currCost,5)
     print(newX)
     print(currCost)
     print(newCost)
