@@ -2,7 +2,7 @@ from cost import cost
 from scipy import signal
 import numpy as np
 
-chordEpsilon = 0.04/100
+chordEpsilon = 0.04/1000
 twistEpsilon = 0.6
 
 epsilon = np.array([
@@ -17,8 +17,9 @@ epsilon = np.array([
 
 def gradientDescent(x,currentCost,steps):
     newX, newCost = x, currentCost
+    print("Starting optimization.\nStarting Blade: {}.\nStarting Cost = {}".format(x,currCost))
     for i in range(steps):
-        newX, newCost = gradientStep(newX,newCost)
+        newX, newCost, omega, velocity = gradientStep(newX,newCost)
         print("Step {} is done. The new cost is {}\n{}".format(i+1,newCost,newX))
     return newX,newCost
 
@@ -27,20 +28,22 @@ def gradientStep(x,currentCost):
     x = np.array(x)
     step = 10*epsilon
     grad = computeGradient(x,currentCost)
+    print("Grad: ",grad)
 
     normalizedGrad = np.divide(grad,abs(grad))
+    print("Normalized Grad: ",normalizedGrad)
 
     newX = proj(x - np.multiply(step,grad))
 
-    newCost = cost(newX)
+    newCost, omega, vel = cost(newX)
 
-    return newX, newCost
+    return newX, newCost, omega, vel
 
 def computeGradient(x,currentCost):
     newCosts = np.zeros(7)
 
     for i in range(7):
-        newCosts[i] = cost(x+np.multiply(epsilon,signal.unit_impulse(7,i)))
+        newCosts[i],_,_ = cost(x+np.multiply(epsilon,signal.unit_impulse(7,i)))
 
     gradient = np.divide(newCosts-currentCost,epsilon)
 
@@ -69,8 +72,7 @@ def proj(x):
 
 
 if __name__ == '__main__':
-    currCost = cost([0.5,0.45,0.35,0.25,12,12,12])
-    newX, newCost = gradientDescent([0.5,0.45,0.35,0.25,12,12,12],currCost,5)
-    print(newX)
-    print(currCost)
-    print(newCost)
+    inputFile = open("startingBlade.txt","r")
+    startingBlade = list(map(float,inputFile.readline().split(",")))
+    currCost,_,_ = cost(startingBlade)
+    newX, newCost = gradientDescent(startingBlade,currCost,2)
