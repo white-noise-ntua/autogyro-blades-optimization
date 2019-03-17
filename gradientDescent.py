@@ -46,8 +46,8 @@ def computeGradient(x,currentCost):
 
     return gradient
 
-chordLowLimit = 0.2
-chordHiLimit = 0.6
+chordLowLimit = 0.02
+chordHiLimit = 0.06
 twistLowLimit = -20
 twistHiLimit = 40
 
