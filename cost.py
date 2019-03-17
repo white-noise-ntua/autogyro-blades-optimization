@@ -31,7 +31,7 @@ def calculateCost(omega,vel,r,c):
 
     BladeCost = 10*(I*omega+VelCost(vel))
 
-    return BladeCost
+    return BladeCost, omega, vel
 
 def cost(x):
     # input: bezier control points in an array
