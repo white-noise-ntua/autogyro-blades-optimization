@@ -2,8 +2,8 @@ from cost import cost
 from scipy import signal
 import numpy as np
 
-chordEpsilon = 0.04/100
-twistEpsilon = 1
+chordEpsilon = 0.01/100
+twistEpsilon = 1/200
 
 epsilon = np.array([
         chordEpsilon,
@@ -16,7 +16,7 @@ epsilon = np.array([
         ])
 
 def gradientDescent(x,currentCost,startingOmega,startingVel,steps):
-    outputFile = open("tests.txt","r+")
+    outputFile = open("tests.txt","w+")
     outputFile.write("New optimization\n Blade | Cost | Omega | Velocity:\n")
 
     newX, newCost = x, currentCost
@@ -26,7 +26,9 @@ def gradientDescent(x,currentCost,startingOmega,startingVel,steps):
     for i in range(steps):
         newX, newCost, omega, velocity = gradientStep(newX,newCost)
         print("Step {} is done.\n".format(i+1))
-        outputFile.write("{}\n{}\n{}\n{}\n".format(newX,newCost,omega,velocity))
+        print("Cost: {}\nOmega: {}\n Velocity: {}\n".format(newCost,omega,velocity))
+        print("New blade: {}\n\n".format(newX))
+        outputFile.write("{}\nNew cost: {}\nOmega: {}\nVelocity: {}\n".format(newX,newCost,omega,velocity))
 
     return newX,newCost
 
@@ -35,7 +37,7 @@ def gradientStep(x,currentCost):
     x = np.array(x)
     step = 10*epsilon
 
-    grad = computeGradient(x,currentCost)
+    grad = computeGradient(x,currentCost,'flat')
     print("Grad: ",grad)
 
     normalizedGrad = np.divide(grad,abs(grad))
@@ -47,8 +49,14 @@ def gradientStep(x,currentCost):
 
     return newX, newCost, omega, vel
 
-def computeGradient(x,currentCost):
+def computeGradient(x,currentCost,twistMode):
     newCosts = np.zeros(7)
+
+    if twistMode == 'flat':
+        coordinates = 4
+        delta = np.array([0,0,0,0,1,1,1])
+        twistCost,_,_ = cost(x+np.multiply(epsilon,delta))
+        newCosts[4]=newCosts[5]=newCosts[6]=twistCost
 
     for i in range(coordinates):
         newCosts[i],_,_ = cost(x+np.multiply(epsilon,signal.unit_impulse(7,i)))
@@ -90,5 +98,5 @@ if __name__ == '__main__':
                         currCost,
                         startingOmega,
                         startingVel,
-                        100
+                        50
                     )
