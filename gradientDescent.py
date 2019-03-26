@@ -58,9 +58,9 @@ def computeGradient(x,currentCost):
     return gradient
 
 chordLowLimit = 0.02
-chordHiLimit = 0.06
-twistLowLimit = -20
-twistHiLimit = 40
+chordHiLimit = 0.04
+twistLowLimit = 5
+twistHiLimit = 30
 
 def proj(x):
     for i in range(7):
