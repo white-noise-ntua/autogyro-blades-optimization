@@ -50,10 +50,10 @@ In order to determine the desired blade, we have to find the state vector <img s
 
 <img src="https://latex.codecogs.com/png.latex?x^{*}&space;=&space;\underset{\overrightarrow{x}&space;\in&space;\mathbb{R}^7}{argmin}&space;L(\overrightarrow{x})" title="x^{*} = \underset{\overrightarrow{x} \in \mathbb{R}^7}{argmin} L(\overrightarrow{x})" />
 
-In real life, there are some manufacturing constraints for the blade so the accepted state vectors must lie in a set, let <img src="https://latex.codecogs.com/png.latex?S" title="S" /> , that is the set of all blades with certain characteristics.
+In real life, there are some manufacturing constraints for the blade so the accepted state vectors must lie in a set, let it be <img src="https://latex.codecogs.com/png.latex?S" title="S" /> , that is the set of all blades with certain characteristics.
 
 To minimize the function <img src="https://latex.codecogs.com/gif.latex?\dpi{100}&space;L(\overrightarrow{x})" title="\overrightarrow{x}" /> over <img src="https://latex.codecogs.com/gif.latex?\dpi{100}&space;\overrightarrow{x}\in&space;S" title="\overrightarrow{x}\in S" /> we will use the Projected
-Gradient Descent Algorithm. Starting from a blade with state vector <img src="https://latex.codecogs.com/gif.latex?\dpi{100}&space;\overrightarrow{x}_{0}" title="\overrightarrow{x}_{0}" /> we are using the following update law to iterratively improve our blade:
+Gradient Descent Algorithm. Starting from a blade with state vector <img src="https://latex.codecogs.com/gif.latex?\dpi{100}&space;\overrightarrow{x}_{0}" title="\overrightarrow{x}_{0}" /> we are using the following update law, to iterratively improve our blade:
 
 <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\overrightarrow{x}_{i&plus;1}&space;=&space;\underset{S}{proj}\left(\overrightarrow{x}_{i}&space;-&space;\eta&space;\cdot&space;\nabla&space;L(\overrightarrow{x}_{i})&space;\right)" title="\overrightarrow{x}_{i+1} = \underset{S}{proj}\left(\overrightarrow{x}_{i} - \eta \cdot \nabla L(\overrightarrow{x}_{i}) \right)" />
 
